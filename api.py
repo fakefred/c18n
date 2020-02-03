@@ -29,9 +29,8 @@ def handle_toot(status: dict, irtid: int, irtacct: str, vis: str):
     # @handle[@domain]; uniqueness guaranteed
     acct = status['account']['acct']
     # only accept stati from @CateCounter@yeet.social
-    if not acct == 'CateCounter@yeet.social':
-        # return
-        pass
+    if not acct in ('CateCounter@yeet.social', 'CateCounter'):
+        return
 
     # BEGIN ATROCITIES
     # caterank: save to './caterank.jpg' if status is cate count

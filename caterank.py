@@ -4,6 +4,7 @@ from htmlops import TootParser
 from imageops import stack
 from textops import hackertext
 from cateops import categraph
+from aviops import get_avi
 from re import match
 
 COLORS = ((0x28, 0x2c, 0x37, 0xff), (0x38, 0x3c, 0x47, 0xff))
@@ -51,11 +52,14 @@ def caterank(content: str) -> Image:
     if rank:
         rows = []
         for idx, entry in enumerate(rank):
-            row = Image.new('RGBA', (600, 60), color=COLORS[idx % 2])
+            row = Image.new('RGBA', (700, 60), color=COLORS[idx % 2])
+            avi = get_avi(entry[0], 50)
+            row.paste(avi, box=(5, 5),
+                      mask=avi if 'A' in avi.getbands() else None)
             handle = hackertext(entry[0].split('@')[0])
-            row.paste(handle, box=(10, 18), mask=handle)
+            row.paste(handle, box=(60, 18), mask=handle)
             cates = categraph(entry[1])
-            row.paste(cates, box=(250, 5), mask=cates)
+            row.paste(cates, box=(300, 5), mask=cates)
             rows.append(row)
 
         output = stack(rows)

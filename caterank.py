@@ -41,7 +41,7 @@ def caterank(content: str) -> Image:
     rank = []
     for l in lines:
         if match(
-            '^\d\. \w+(@(\w+\.)+\w+)? - \d+\.\d+ cates$', l.strip()
+            '^\d{1,2}\. \w+(@(\w+\.)+\w+)? - \d+\.\d+ cates$', l.strip()
         ) is not None:
             segs = l.split()
             rank.append((
